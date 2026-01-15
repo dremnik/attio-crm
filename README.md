@@ -22,9 +22,9 @@ The full API of this library can be found in [api.md](api.md).
 ```js
 import Attio from 'attio-crm';
 
-const client = new Attio();
+const attio = new Attio();
 
-const objects = await client.objects.list();
+const objects = await attio.objects.list();
 
 console.log(objects.data);
 ```
@@ -37,9 +37,9 @@ This library includes TypeScript definitions for all request params and response
 ```ts
 import Attio from 'attio-crm';
 
-const client = new Attio();
+const attio = new Attio();
 
-const objects: Attio.ObjectListResponse = await client.objects.list();
+const objects: Attio.ObjectListResponse = await attio.objects.list();
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -52,7 +52,7 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-const objects = await client.objects.list().catch(async (err) => {
+const objects = await attio.objects.list().catch(async (err) => {
   if (err instanceof Attio.APIError) {
     console.log(err.status); // 400
     console.log(err.name); // BadRequestError
@@ -87,12 +87,12 @@ You can use the `maxRetries` option to configure or disable this:
 <!-- prettier-ignore -->
 ```js
 // Configure the default for all requests:
-const client = new Attio({
+const attio = new Attio({
   maxRetries: 0, // default is 2
 });
 
 // Or, configure per-request:
-await client.objects.list({
+await attio.objects.list({
   maxRetries: 5,
 });
 ```
@@ -104,12 +104,12 @@ Requests time out after 1 minute by default. You can configure this with a `time
 <!-- prettier-ignore -->
 ```ts
 // Configure the default for all requests:
-const client = new Attio({
+const attio = new Attio({
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
 });
 
 // Override per-request:
-await client.objects.list({
+await attio.objects.list({
   timeout: 5 * 1000,
 });
 ```
@@ -130,13 +130,13 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 
 <!-- prettier-ignore -->
 ```ts
-const client = new Attio();
+const attio = new Attio();
 
-const response = await client.objects.list().asResponse();
+const response = await attio.objects.list().asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: objects, response: raw } = await client.objects.list().withResponse();
+const { data: objects, response: raw } = await attio.objects.list().withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(objects.data);
 ```
@@ -157,7 +157,7 @@ The log level can be configured in two ways:
 ```ts
 import Attio from 'attio-crm';
 
-const client = new Attio({
+const attio = new Attio({
   logLevel: 'debug', // Show all log messages
 });
 ```
@@ -188,7 +188,7 @@ import pino from 'pino';
 
 const logger = pino();
 
-const client = new Attio({
+const attio = new Attio({
   logger: logger.child({ name: 'Attio' }),
   logLevel: 'debug', // Send all messages to pino, allowing it to filter
 });
@@ -201,11 +201,11 @@ endpoints, params, or response properties, the library can still be used.
 
 #### Undocumented endpoints
 
-To make requests to undocumented endpoints, you can use `client.get`, `client.post`, and other HTTP verbs.
+To make requests to undocumented endpoints, you can use `attio.get`, `attio.post`, and other HTTP verbs.
 Options on the client, such as retries, will be respected when making these requests.
 
 ```ts
-await client.post('/some/path', {
+await attio.post('/some/path', {
   body: { some_prop: 'foo' },
   query: { some_query_arg: 'bar' },
 });
@@ -218,7 +218,7 @@ parameter. This library doesn't validate at runtime that the request matches the
 send will be sent as-is.
 
 ```ts
-client.objects.list({
+attio.objects.list({
   // ...
   // @ts-expect-error baz is not yet public
   baz: 'undocumented option',
@@ -255,7 +255,7 @@ Or pass it to the client:
 import Attio from 'attio-crm';
 import fetch from 'my-fetch';
 
-const client = new Attio({ fetch });
+const attio = new Attio({ fetch });
 ```
 
 ### Fetch options
@@ -265,7 +265,7 @@ If you want to set custom `fetch` options without overriding the `fetch` functio
 ```ts
 import Attio from 'attio-crm';
 
-const client = new Attio({
+const attio = new Attio({
   fetchOptions: {
     // `RequestInit` options
   },
@@ -284,7 +284,7 @@ import Attio from 'attio-crm';
 import * as undici from 'undici';
 
 const proxyAgent = new undici.ProxyAgent('http://localhost:8888');
-const client = new Attio({
+const attio = new Attio({
   fetchOptions: {
     dispatcher: proxyAgent,
   },
@@ -296,7 +296,7 @@ const client = new Attio({
 ```ts
 import Attio from 'attio-crm';
 
-const client = new Attio({
+const attio = new Attio({
   fetchOptions: {
     proxy: 'http://localhost:8888',
   },
@@ -309,7 +309,7 @@ const client = new Attio({
 import Attio from 'npm:attio-crm';
 
 const httpClient = Deno.createHttpClient({ proxy: { url: 'http://localhost:8888' } });
-const client = new Attio({
+const attio = new Attio({
   fetchOptions: {
     client: httpClient,
   },
