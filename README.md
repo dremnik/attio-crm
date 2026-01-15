@@ -11,11 +11,8 @@ It is generated with [Stainless](https://www.stainless.com/).
 ## Installation
 
 ```sh
-npm install git+ssh://git@github.com:stainless-sdks/attio-crm-typescript.git
+npm install attio-crm
 ```
-
-> [!NOTE]
-> Once this package is [published to npm](https://www.stainless.com/docs/guides/publish), this will become: `npm install attio-crm`
 
 ## Usage
 
@@ -23,9 +20,9 @@ The full API of this library can be found in [api.md](api.md).
 
 <!-- prettier-ignore -->
 ```js
-import AttioCRM from 'attio-crm';
+import Attio from 'attio-crm';
 
-const client = new AttioCRM();
+const client = new Attio();
 
 const objects = await client.objects.list();
 
@@ -38,11 +35,11 @@ This library includes TypeScript definitions for all request params and response
 
 <!-- prettier-ignore -->
 ```ts
-import AttioCRM from 'attio-crm';
+import Attio from 'attio-crm';
 
-const client = new AttioCRM();
+const client = new Attio();
 
-const objects: AttioCRM.ObjectListResponse = await client.objects.list();
+const objects: Attio.ObjectListResponse = await client.objects.list();
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -56,7 +53,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 const objects = await client.objects.list().catch(async (err) => {
-  if (err instanceof AttioCRM.APIError) {
+  if (err instanceof Attio.APIError) {
     console.log(err.status); // 400
     console.log(err.name); // BadRequestError
     console.log(err.headers); // {server: 'nginx', ...}
@@ -90,7 +87,7 @@ You can use the `maxRetries` option to configure or disable this:
 <!-- prettier-ignore -->
 ```js
 // Configure the default for all requests:
-const client = new AttioCRM({
+const client = new Attio({
   maxRetries: 0, // default is 2
 });
 
@@ -107,7 +104,7 @@ Requests time out after 1 minute by default. You can configure this with a `time
 <!-- prettier-ignore -->
 ```ts
 // Configure the default for all requests:
-const client = new AttioCRM({
+const client = new Attio({
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
 });
 
@@ -133,7 +130,7 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 
 <!-- prettier-ignore -->
 ```ts
-const client = new AttioCRM();
+const client = new Attio();
 
 const response = await client.objects.list().asResponse();
 console.log(response.headers.get('X-My-Header'));
@@ -158,9 +155,9 @@ The log level can be configured in two ways:
 2. Using the `logLevel` client option (overrides the environment variable if set)
 
 ```ts
-import AttioCRM from 'attio-crm';
+import Attio from 'attio-crm';
 
-const client = new AttioCRM({
+const client = new Attio({
   logLevel: 'debug', // Show all log messages
 });
 ```
@@ -186,13 +183,13 @@ When providing a custom logger, the `logLevel` option still controls which messa
 below the configured level will not be sent to your logger.
 
 ```ts
-import AttioCRM from 'attio-crm';
+import Attio from 'attio-crm';
 import pino from 'pino';
 
 const logger = pino();
 
-const client = new AttioCRM({
-  logger: logger.child({ name: 'AttioCRM' }),
+const client = new Attio({
+  logger: logger.child({ name: 'Attio' }),
   logLevel: 'debug', // Send all messages to pino, allowing it to filter
 });
 ```
@@ -255,10 +252,10 @@ globalThis.fetch = fetch;
 Or pass it to the client:
 
 ```ts
-import AttioCRM from 'attio-crm';
+import Attio from 'attio-crm';
 import fetch from 'my-fetch';
 
-const client = new AttioCRM({ fetch });
+const client = new Attio({ fetch });
 ```
 
 ### Fetch options
@@ -266,9 +263,9 @@ const client = new AttioCRM({ fetch });
 If you want to set custom `fetch` options without overriding the `fetch` function, you can provide a `fetchOptions` object when instantiating the client or making a request. (Request-specific options override client options.)
 
 ```ts
-import AttioCRM from 'attio-crm';
+import Attio from 'attio-crm';
 
-const client = new AttioCRM({
+const client = new Attio({
   fetchOptions: {
     // `RequestInit` options
   },
@@ -283,11 +280,11 @@ options to requests:
 <img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/node.svg" align="top" width="18" height="21"> **Node** <sup>[[docs](https://github.com/nodejs/undici/blob/main/docs/docs/api/ProxyAgent.md#example---proxyagent-with-fetch)]</sup>
 
 ```ts
-import AttioCRM from 'attio-crm';
+import Attio from 'attio-crm';
 import * as undici from 'undici';
 
 const proxyAgent = new undici.ProxyAgent('http://localhost:8888');
-const client = new AttioCRM({
+const client = new Attio({
   fetchOptions: {
     dispatcher: proxyAgent,
   },
@@ -297,9 +294,9 @@ const client = new AttioCRM({
 <img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/bun.svg" align="top" width="18" height="21"> **Bun** <sup>[[docs](https://bun.sh/guides/http/proxy)]</sup>
 
 ```ts
-import AttioCRM from 'attio-crm';
+import Attio from 'attio-crm';
 
-const client = new AttioCRM({
+const client = new Attio({
   fetchOptions: {
     proxy: 'http://localhost:8888',
   },
@@ -309,10 +306,10 @@ const client = new AttioCRM({
 <img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/deno.svg" align="top" width="18" height="21"> **Deno** <sup>[[docs](https://docs.deno.com/api/deno/~/Deno.createHttpClient)]</sup>
 
 ```ts
-import AttioCRM from 'npm:attio-crm';
+import Attio from 'npm:attio-crm';
 
 const httpClient = Deno.createHttpClient({ proxy: { url: 'http://localhost:8888' } });
-const client = new AttioCRM({
+const client = new Attio({
   fetchOptions: {
     client: httpClient,
   },
@@ -331,7 +328,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/attio-crm-typescript/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/dremnik/attio-crm/issues) with questions, bugs, or suggestions.
 
 ## Requirements
 
