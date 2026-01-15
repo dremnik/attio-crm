@@ -128,7 +128,7 @@ import { isEmptyObj } from './internal/utils/values';
 
 export interface ClientOptions {
   /**
-   * Defaults to process.env['ATTIO_CRM_API_KEY'].
+   * Defaults to process.env['ATTIO_API_KEY'].
    */
   apiKey?: string | null | undefined;
 
@@ -222,7 +222,7 @@ export class Attio {
   /**
    * API Client for interfacing with the Attio CRM API.
    *
-   * @param {string | null | undefined} [opts.apiKey=process.env['ATTIO_CRM_API_KEY'] ?? null]
+   * @param {string | null | undefined} [opts.apiKey=process.env['ATTIO_API_KEY'] ?? null]
    * @param {string} [opts.baseURL=process.env['ATTIO_CRM_BASE_URL'] ?? https://api.attio.com] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
@@ -233,7 +233,7 @@ export class Attio {
    */
   constructor({
     baseURL = readEnv('ATTIO_CRM_BASE_URL'),
-    apiKey = readEnv('ATTIO_CRM_API_KEY') ?? null,
+    apiKey = readEnv('ATTIO_API_KEY') ?? null,
     ...opts
   }: ClientOptions = {}) {
     const options: ClientOptions = {
