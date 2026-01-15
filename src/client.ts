@@ -204,7 +204,7 @@ export interface ClientOptions {
 /**
  * API Client for interfacing with the Attio CRM API.
  */
-export class AttioCRM {
+export class Attio {
   apiKey: string | null;
 
   baseURL: string;
@@ -243,7 +243,7 @@ export class AttioCRM {
     };
 
     this.baseURL = options.baseURL!;
-    this.timeout = options.timeout ?? AttioCRM.DEFAULT_TIMEOUT /* 1 minute */;
+    this.timeout = options.timeout ?? Attio.DEFAULT_TIMEOUT /* 1 minute */;
     this.logger = options.logger ?? console;
     const defaultLogLevel = 'warn';
     // Set default logLevel early so that we can log a warning in parseLogLevel.
@@ -325,7 +325,7 @@ export class AttioCRM {
         if (value === null) {
           return `${encodeURIComponent(key)}=`;
         }
-        throw new Errors.AttioCRMError(
+        throw new Errors.AttioError(
           `Cannot stringify type ${typeof value}; Expected string, number, boolean, or null. If you need to pass nested query parameters, you can manually encode them, e.g. { query: { 'foo[key1]': value1, 'foo[key2]': value2 } }, and please open a GitHub issue requesting better support for your use case.`,
         );
       })
@@ -797,10 +797,10 @@ export class AttioCRM {
     }
   }
 
-  static AttioCRM = this;
+  static Attio = this;
   static DEFAULT_TIMEOUT = 60000; // 1 minute
 
-  static AttioCRMError = Errors.AttioCRMError;
+  static AttioError = Errors.AttioError;
   static APIError = Errors.APIError;
   static APIConnectionError = Errors.APIConnectionError;
   static APIConnectionTimeoutError = Errors.APIConnectionTimeoutError;
@@ -829,19 +829,19 @@ export class AttioCRM {
   self: API.Self = new API.Self(this);
 }
 
-AttioCRM.Objects = Objects;
-AttioCRM.Attributes = Attributes;
-AttioCRM.Lists = Lists;
-AttioCRM.WorkspaceMembers = WorkspaceMembers;
-AttioCRM.Notes = Notes;
-AttioCRM.Tasks = Tasks;
-AttioCRM.Threads = Threads;
-AttioCRM.Comments = Comments;
-AttioCRM.Meetings = Meetings;
-AttioCRM.Webhooks = Webhooks;
-AttioCRM.Self = Self;
+Attio.Objects = Objects;
+Attio.Attributes = Attributes;
+Attio.Lists = Lists;
+Attio.WorkspaceMembers = WorkspaceMembers;
+Attio.Notes = Notes;
+Attio.Tasks = Tasks;
+Attio.Threads = Threads;
+Attio.Comments = Comments;
+Attio.Meetings = Meetings;
+Attio.Webhooks = Webhooks;
+Attio.Self = Self;
 
-export declare namespace AttioCRM {
+export declare namespace Attio {
   export type RequestOptions = Opts.RequestOptions;
 
   export {

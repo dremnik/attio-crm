@@ -1334,23 +1334,23 @@ export namespace Attribute {
 export type InputValue =
   | InputValue.UnionMember0
   | InputValue.WorkspaceMemberEmailAddress
-  | InputValue.Value
+  | InputValue.CheckboxValue
   | InputValue.CurrencyValue
-  | InputValue.Value
+  | InputValue.DateValue
   | InputValue.Domain
   | InputValue.EmailAddress
   | InputValue.UnionMember7
   | InputValue.UnionMember8
   | InputValue.UnionMember9
   | InputValue.UnionMember10
-  | InputValue.Value
+  | InputValue.NumberValue
   | InputValue.UnionMember12
   | InputValue.UnionMember13
   | InputValue.Status
-  | InputValue.Value
+  | InputValue.RatingValue
   | InputValue.Option
-  | InputValue.Value
-  | InputValue.Value;
+  | InputValue.TextValue
+  | InputValue.TimestampValue;
 
 export namespace InputValue {
   export interface UnionMember0 {
@@ -1374,7 +1374,7 @@ export namespace InputValue {
     workspace_member_email_address: string;
   }
 
-  export interface Value {
+  export interface CheckboxValue {
     /**
      * A boolean representing whether the checkbox is checked or not. The string values
      * 'true' and 'false' are also accepted.
@@ -1390,7 +1390,7 @@ export namespace InputValue {
     currency_value: number;
   }
 
-  export interface Value {
+  export interface DateValue {
     /**
      * A date represents a single calendar year, month and day, independent of
      * timezone. If hours, months, seconds or timezones are provided, they will be
@@ -1449,9 +1449,9 @@ export namespace InputValue {
     '[slug_or_id_of_matching_attribute]': Array<
       | UnionMember8.Domain
       | UnionMember8.EmailAddress
-      | UnionMember8.Value
+      | UnionMember8.NumberValue
       | UnionMember8.UnionMember3
-      | UnionMember8.Value
+      | UnionMember8.TextValue
     >;
 
     /**
@@ -1475,7 +1475,7 @@ export namespace InputValue {
       email_address?: string;
     }
 
-    export interface Value {
+    export interface NumberValue {
       /**
        * Numbers are persisted as 64 bit floats.
        */
@@ -1748,7 +1748,7 @@ export namespace InputValue {
       original_phone_number?: string;
     }
 
-    export interface Value {
+    export interface TextValue {
       /**
        * A raw text field. Values are limited to 10MB.
        */
@@ -2106,7 +2106,7 @@ export namespace InputValue {
     region: string | null;
   }
 
-  export interface Value {
+  export interface NumberValue {
     /**
      * Numbers are persisted as 64 bit floats.
      */
@@ -2405,7 +2405,7 @@ export namespace InputValue {
     status: string;
   }
 
-  export interface Value {
+  export interface RatingValue {
     /**
      * A number between 0 and 5 (inclusive) to represent a star rating.
      */
@@ -2419,14 +2419,14 @@ export namespace InputValue {
     option: string;
   }
 
-  export interface Value {
+  export interface TextValue {
     /**
      * A raw text field. Values are limited to 10MB.
      */
     value: string;
   }
 
-  export interface Value {
+  export interface TimestampValue {
     /**
      * A timestamp value represents a single, universal moment in time using an ISO
      * 8601 formatted string. This means that a timestamp consists of a date, a time

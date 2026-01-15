@@ -282,9 +282,9 @@ export namespace TaskCreateParams {
       '[slug_or_id_of_matching_attribute]': Array<
         | UnionMember1.Domain
         | UnionMember1.EmailAddress
-        | UnionMember1.Value
+        | UnionMember1.NumberValue
         | UnionMember1.UnionMember3
-        | UnionMember1.Value
+        | UnionMember1.TextValue
       >;
 
       /**
@@ -308,7 +308,7 @@ export namespace TaskCreateParams {
         email_address?: string;
       }
 
-      export interface Value {
+      export interface NumberValue {
         /**
          * Numbers are persisted as 64 bit floats.
          */
@@ -581,7 +581,7 @@ export namespace TaskCreateParams {
         original_phone_number?: string;
       }
 
-      export interface Value {
+      export interface TextValue {
         /**
          * A raw text field. Values are limited to 10MB.
          */
@@ -670,9 +670,9 @@ export namespace TaskUpdateParams {
       '[slug_or_id_of_matching_attribute]': Array<
         | UnionMember1.Domain
         | UnionMember1.EmailAddress
-        | UnionMember1.Value
+        | UnionMember1.NumberValue
         | UnionMember1.UnionMember3
-        | UnionMember1.Value
+        | UnionMember1.TextValue
       >;
 
       /**
@@ -696,7 +696,7 @@ export namespace TaskUpdateParams {
         email_address?: string;
       }
 
-      export interface Value {
+      export interface NumberValue {
         /**
          * Numbers are persisted as 64 bit floats.
          */
@@ -969,7 +969,7 @@ export namespace TaskUpdateParams {
         original_phone_number?: string;
       }
 
-      export interface Value {
+      export interface TextValue {
         /**
          * A raw text field. Values are limited to 10MB.
          */

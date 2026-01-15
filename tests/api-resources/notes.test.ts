@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import AttioCRM from 'attio-crm';
+import Attio from 'attio-crm';
 
-const client = new AttioCRM({
+const client = new Attio({
   apiKey: 'My API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
@@ -82,7 +82,7 @@ describe('resource notes', () => {
         },
         { path: '/_stainless_unknown_path' },
       ),
-    ).rejects.toThrow(AttioCRM.NotFoundError);
+    ).rejects.toThrow(Attio.NotFoundError);
   });
 
   // Prism tests are disabled
